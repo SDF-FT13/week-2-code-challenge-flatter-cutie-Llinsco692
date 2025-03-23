@@ -53,3 +53,31 @@ function displayCharacterDetails(characterId) {
     });
 }
 
+//Update votes 
+function updateVotes(characterId, totalAddedVotes) {
+    fetch(`http://localhost:3000/characters/${characterId}`)
+      .then(response => response.json())
+      .then(character => {
+        const newVotes = character.votes + totalAddedVotes; // Adding votes cumulatively
+        return fetch(`http://localhost:3000/characters/${characterId}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            votes: newVotes,
+          }),
+        });
+      })
+      .then(response => response.json())
+      .then(updatedCharacter => {
+        const voteCount = document.getElementById('vote-count');
+        voteCount.textContent = updatedCharacter.votes;
+      })
+      .catch(error => {
+        console.error('Error updating votes:', error);
+      });
+  }
+  
+  
+    
