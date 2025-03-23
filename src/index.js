@@ -79,5 +79,24 @@ function updateVotes(characterId, totalAddedVotes) {
       });
   }
   
-  
+  //reset votes 
+  function resetVotes(characterId) {
+    fetch(`http://localhost:3000/characters/${characterId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        votes: 0,
+      }),
+    })
+      .then(response => response.json())
+      .then(updatedCharacter => {
+        const voteCount = document.getElementById('vote-count');
+        voteCount.textContent = updatedCharacter.votes;
+      })
+      .catch(error => {
+        console.error('Error resetting votes:', error);
+      });
+  }
     
