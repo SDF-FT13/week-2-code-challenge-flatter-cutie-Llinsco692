@@ -22,11 +22,11 @@ fetch('http://localhost:3000/characters')
 document.addEventListener('DOMContentLoaded', () => {
   const selectedCharacterId = localStorage.getItem('selectedCharacterId');
   if (selectedCharacterId) {
-    displayCharacterDetails(selectedCharacterId);  // Display previously clicked character details
+    displayCharacterDetails(selectedCharacterId);  /
   }
 });
 
-// Displaying character details
+// Displaying character 
 function displayCharacterDetails(characterId) {
   fetch(`http://localhost:3000/characters/${characterId}`)
     .then(response => response.json())
