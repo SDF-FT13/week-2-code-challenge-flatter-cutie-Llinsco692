@@ -99,4 +99,36 @@ function updateVotes(characterId, totalAddedVotes) {
         console.error('Error resetting votes:', error);
       });
   }
+  //Adding a new character 
+  function addnewChar(newCharacter) {
+    fetch('http://localhost:3000/characters', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newCharacter) 
+  })
+  .then(response => response.json())
+  .then(character => {
+    // Add new character
+    const charBar = document.getElementById('character-bar');
+    const span = document.createElement('span');
+    span.textContent = character.name;
+    charBar.appendChild(span);
+    span.addEventListener('click', () => displayCharacterDetails(character.id));
+    displayCharacterDetails(character.id);
+})
+.catch(error => {
+  console.error('Error adding new character:', error);
+});
+}
+    const characterForm = document.getElementById('character-form');
+   characterForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  const name = document.getElementById('name').value;
+  const image = document.getElementById('image-url').value;
+  const newCharacter = { name, image, votes: 0 };
+  addnewChar(newCharacter);
+});
+
     
